@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
             seconds()
         }.toString()
 
-        val c = Color.RED
-
         Log.e(TAG, "time: $timeString")
 
         // vincent gil stephenson
