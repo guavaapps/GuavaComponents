@@ -38,3 +38,24 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
+
+ext {
+    PUBLISH_GROUP_ID = 'com.guavaapps.components'
+    PUBLISH_VERSION = '1.0.0-alpha02'
+    PUBLISH_ARTIFACT_ID = 'components'
+    PUBLISH_DESCRIPTION = 'Guava Components'
+    PUBLISH_URL = 'https://github.com/guavaapps/GuavaComponents'
+    PUBLISH_LICENSE_NAME = ''
+    PUBLISH_LICENSE_URL = ''
+    PUBLISH_DEVELOPER_ID = 'guavaapps'
+    PUBLISH_DEVELOPER_NAME = 'Guava Apps'
+    PUBLISH_DEVELOPER_EMAIL = 'guavaapps.db@gmail.com'
+    PUBLISH_SCM_CONNECTION =
+            'scm:git:https://github.com/guavaapps/GuavaComponents.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION =
+            'scm:git:ssh://https://github.com/guavaapps/GuavaComponents.git'
+    PUBLISH_SCM_URL =
+            'https://github.com/guavaapps/GuavaComponents/tree/master'
+}
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"

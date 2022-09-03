@@ -6,8 +6,6 @@ import androidx.annotation.DrawableRes
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import com.guavaapps.components.bitmap.BitmapTools
-import com.guavaapps.components.bitmap.BitmapDownloadCallback
 import java.io.File
 import java.lang.Exception
 import java.net.URL

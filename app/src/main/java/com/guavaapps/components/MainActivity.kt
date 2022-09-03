@@ -1,10 +1,11 @@
 package com.guavaapps.components
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.guavaapps.components.color.Hct
+import com.guavaapps.components.bitmap.BitmapTools
 import com.guavaapps.components.timestring.TimeString
 
 class MainActivity : AppCompatActivity() {
