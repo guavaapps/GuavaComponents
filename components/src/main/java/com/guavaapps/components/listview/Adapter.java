@@ -14,13 +14,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter <ViewHolder> {
-        private List <CoordinatorLayout> viewHolders;
+        private List <CoordinatorLayout> viewHolders = new ArrayList <> ();
+        @Deprecated
         private List <Item> items;
+        private List <View> views = new ArrayList <> ();
 
-        public Adapter (List <Item> items) {
+        @Deprecated
+        public Adapter (List <Item> items, String deprecatedSigChange) {
             this.items = items;
 
             viewHolders = new ArrayList <> ();
+        }
+
+        public Adapter () {
+
+        }
+
+        public Adapter (List <View> views) {
+            this.views = views;
         }
 
         @NonNull
@@ -36,9 +47,9 @@ public class Adapter extends RecyclerView.Adapter <ViewHolder> {
         public void onBindViewHolder (@NonNull ViewHolder holder, int position) {
             CoordinatorLayout itemHolder = holder.getView ().findViewById (R.id.item_holder);
             Item item = items.get (position);
-            View view = item.view;
-            int width = item.width;
-            int height = item.height;
+            View view = views.get (position);
+            int width = view.getLayoutParams ().width;
+            int height = view.getLayoutParams ().height;
 
             itemHolder.getLayoutParams ().width = width;
             itemHolder.getLayoutParams ().height = height;

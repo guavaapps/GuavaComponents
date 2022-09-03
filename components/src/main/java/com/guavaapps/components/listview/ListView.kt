@@ -8,33 +8,31 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 
 class ListView(context: Context, attrs: AttributeSet?) : RecyclerView(context, attrs) {
-    private var items: MutableList<Item>
+    private var items: MutableList<View>
     private var adapter: com.guavaapps.components.listview.Adapter
     private var layoutManager: com.guavaapps.components.listview.LayoutManager
 
-    fun addItem(position: Int, item: View?) {
-        val listItem = Item(item)
-        items.add(position, listItem)
+    fun add(position: Int, item: View) {
+        items.add(position, item)
         adapter.notifyItemInserted(position)
     }
 
-    fun addItem(item: View?) {
-        addItem(items.size, item)
+    fun add(item: View) {
+        add(items.size, item)
     }
 
-    fun addItems(position: Int, items: List<View?>) {
+    fun add(position: Int, items: List<View>) {
         for (item in items) {
-            val listItem = Item(item)
-            this.items.add(position + items.indexOf(item), listItem)
+            this.items.add(position + items.indexOf(item), item)
         }
         adapter.notifyItemRangeInserted(position, items.size)
     }
 
-    fun addItems(items: List<View?>) {
-        addItems(this.items.size, items)
+    fun add(items: List<View>) {
+        add(this.items.size, items)
     }
 
-    fun moveItem(from: Int, to: Int) {
+    fun move(from: Int, to: Int) {
         val fromItem = items[from]
         val toItem = items[to]
         items[from] = toItem
@@ -42,12 +40,12 @@ class ListView(context: Context, attrs: AttributeSet?) : RecyclerView(context, a
         adapter.notifyItemMoved(from, to)
     }
 
-    fun removeItem(position: Int) {
+    fun remove(position: Int) {
         items.removeAt(position)
         adapter.notifyItemRangeRemoved(position, 1)
     }
 
-    fun removeItems(position: Int, count: Int) {
+    fun remove(position: Int, count: Int) {
         var i = position
         while (i < position + count) {
             items.removeAt(position)
@@ -56,7 +54,7 @@ class ListView(context: Context, attrs: AttributeSet?) : RecyclerView(context, a
         adapter.notifyItemRangeRemoved(position, count)
     }
 
-    fun clearItems() {
+    fun clear() {
         val c = items.size
         items.clear()
         adapter.notifyItemRangeRemoved(0, c)
