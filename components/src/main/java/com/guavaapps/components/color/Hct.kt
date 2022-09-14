@@ -2,26 +2,33 @@ package com.guavaapps.components.color
 
 import androidx.annotation.FloatRange
 
-class Hct private constructor(h: Float = 0f, c: Float = 0f, t: Float = 0f){
-    var hue: Float = h
-//        set(newHue) = setInternalState(gamutMap(MathUtils.sanitizeDegrees(newHue), chroma, tone))
+class Hct private constructor(
+    var h: Float = 0f,
+    var c: Float = 0f,
+    var t: Float = 0f
+) {
+    var hue: Float
+        get() = h
+        set(newHue) = setInternalState(gamutMap(MathUtils.sanitizeDegrees(newHue), chroma, tone))
 
-    var chroma: Float = c
-//        set(newChroma) = setInternalState(gamutMap(hue, newChroma, tone))
+    var chroma: Float
+        get() = c
+        set(newChroma) = setInternalState(gamutMap(hue, newChroma, tone))
 
-    var tone: Float = t
-//        set(newTone) = setInternalState(gamutMap(hue, chroma, newTone))
+    var tone: Float
+        get() = t
+        set(newTone) = setInternalState(gamutMap(hue, chroma, newTone))
 
     fun toInt(): Int {
-        return gamutMap(hue, chroma, tone)
+        return gamutMap(h, c, t)
     }
 
     private fun setInternalState(argb: Int) {
         val cam = Cam16.fromInt(argb)
         val tone = ColorUtils.lstarFromInt(argb)
-        hue = cam.hue
-        chroma = cam.chroma
-        this.tone = tone
+        h = cam.hue
+        c = cam.chroma
+        t = tone
     }
 
     companion object {

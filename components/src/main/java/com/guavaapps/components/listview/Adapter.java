@@ -15,16 +15,7 @@ import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter <ViewHolder> {
         private List <CoordinatorLayout> viewHolders = new ArrayList <> ();
-        @Deprecated
-        private List <Item> items;
         private List <View> views = new ArrayList <> ();
-
-        @Deprecated
-        public Adapter (List <Item> items, String deprecatedSigChange) {
-            this.items = items;
-
-            viewHolders = new ArrayList <> ();
-        }
 
         public Adapter () {
 
@@ -46,7 +37,6 @@ public class Adapter extends RecyclerView.Adapter <ViewHolder> {
         @Override
         public void onBindViewHolder (@NonNull ViewHolder holder, int position) {
             CoordinatorLayout itemHolder = holder.getView ().findViewById (R.id.item_holder);
-            Item item = items.get (position);
             View view = views.get (position);
             int width = view.getLayoutParams ().width;
             int height = view.getLayoutParams ().height;
@@ -80,6 +70,6 @@ public class Adapter extends RecyclerView.Adapter <ViewHolder> {
 
         @Override
         public int getItemCount () {
-            return items.size ();
+            return views.size ();
         }
     }
