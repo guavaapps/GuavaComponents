@@ -1,10 +1,13 @@
 package com.guavaapps.components
 
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import com.guavaapps.components.Components.getPx
 import com.guavaapps.components.color.Hct
 import com.guavaapps.components.listview.ListView
