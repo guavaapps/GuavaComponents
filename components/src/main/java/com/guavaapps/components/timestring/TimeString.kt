@@ -2,49 +2,69 @@ package com.guavaapps.components.timestring
 
 import java.util.concurrent.TimeUnit
 
-open class TimeString(private val milliseconds: Long) {
-    private val components: MutableList<String> = mutableListOf()
+class TimeString(private val millis: Long) {
+    private val components = mutableListOf<String>()
 
     override fun toString(): String {
         return components.joinToString("")
     }
 
     fun separator(s: String) {
-        components.add(s);
+        components.add(s)
     }
 
-    fun milliseconds() {
-        milliseconds("%d");
+    fun milliseconds(f: String? = "%d") {
+        val c = (millis
+                - TimeUnit.SECONDS.toMillis(millis))
+        components.add(String.format(f!!, c))
     }
 
-    fun milliseconds(f: String) {
-        val c: Long = milliseconds
-        -TimeUnit.SECONDS.toMillis(milliseconds);
-
-        components.add(String.format(f, c));
+    fun seconds(f: String? = "%d") {
+        val c = (TimeUnit.MILLISECONDS.toSeconds(millis)
+                - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
+        components.add(String.format(f!!, c))
     }
 
-    fun seconds() {
-        seconds("%d");
+    fun minutes(f: String? = "%d") {
+        val c = (TimeUnit.MILLISECONDS.toMinutes(millis)
+                - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))
+        components.add(String.format(f!!, c))
     }
 
-    fun seconds(f: String) {
-        val c: Long = (
-                TimeUnit.MILLISECONDS.toSeconds(milliseconds)
-                        - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds))
-                );
+    class Builder(milliseconds: Long) {
+        private val mTimeString: TimeString
+        fun separator(s: String): Builder {
+            mTimeString.components.add(s)
+            return this
+        }
 
-        components.add(String.format(f, c));
-    }
+        fun milliseconds(f: String? = "%d"): Builder {
+            val c = (mTimeString.millis
+                    - TimeUnit.SECONDS.toMillis(mTimeString.millis))
+            mTimeString.components.add(String.format(f!!, c))
+            return this
+        }
 
-    fun minutes() {
-        minutes("%d");
-    }
+        fun seconds(f: String? = "%d"): Builder {
+            val c = (TimeUnit.MILLISECONDS.toSeconds(mTimeString.millis)
+                    - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mTimeString.millis)))
+            mTimeString.components.add(String.format(f!!, c))
+            return this
+        }
 
-    fun minutes(f: String) {
-        val c: Long = TimeUnit.MILLISECONDS.toMinutes(milliseconds)
-        -TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliseconds));
+        fun minutes(f: String? = "%d"): Builder {
+            val c = (TimeUnit.MILLISECONDS.toMinutes(mTimeString.millis)
+                    - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(mTimeString.millis)))
+            mTimeString.components.add(String.format(f!!, c))
+            return this
+        }
 
-        components.add(String.format(f, c));
+        fun build(): TimeString {
+            return mTimeString
+        }
+
+        init {
+            mTimeString = TimeString(milliseconds)
+        }
     }
 }

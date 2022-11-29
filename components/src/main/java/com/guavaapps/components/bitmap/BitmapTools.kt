@@ -61,9 +61,9 @@ object BitmapTools {
         return null
     }
 
-    fun from(url: String?, callback: BitmapDownloadCallback) {
+    fun from(url: String?, block: (Bitmap?) -> Unit) {
         try {
-            callback.onDownload(from(url))
+            block (from (url))
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -76,13 +76,5 @@ object BitmapTools {
             e.printStackTrace()
         }
         return null
-    }
-
-    fun from(bitmap: File, callback: BitmapDownloadCallback) {
-        try {
-            callback.onDownload(from(bitmap))
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 }

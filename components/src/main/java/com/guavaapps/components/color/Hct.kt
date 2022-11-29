@@ -2,22 +2,22 @@ package com.guavaapps.components.color
 
 import androidx.annotation.FloatRange
 
-class Hct private constructor(
-    var h: Float = 0f,
-    var c: Float = 0f,
-    var t: Float = 0f
-) {
+class Hct {
+    private var h: Float = 0f
+    private var c: Float = 0f
+    private var t: Float = 0f
+
     var hue: Float
         get() = h
-        set(newHue) = setInternalState(gamutMap(MathUtils.sanitizeDegrees(newHue), chroma, tone))
+        set(newHue) = setInternalState(gamutMap(MathUtils.sanitizeDegrees(newHue), c, t))
 
     var chroma: Float
         get() = c
-        set(newChroma) = setInternalState(gamutMap(hue, newChroma, tone))
+        set(newChroma) = setInternalState(gamutMap(h, newChroma, t))
 
     var tone: Float
         get() = t
-        set(newTone) = setInternalState(gamutMap(hue, chroma, newTone))
+        set(newTone) = setInternalState(gamutMap(h, c, newTone))
 
     fun toInt(): Int {
         return gamutMap(h, c, t)
@@ -34,7 +34,11 @@ class Hct private constructor(
     companion object {
         fun fromInt(argb: Int): Hct {
             val cam = Cam16.fromInt(argb)
-            return Hct(cam.hue, cam.chroma, ColorUtils.lstarFromInt(argb))
+            return Hct ().apply {
+                h = cam.hue
+                c = cam.chroma
+                t = ColorUtils.lstarFromInt(argb)
+            }
         }
 
         private const val CHROMA_SEARCH_ENDPOINT = 0.4f
@@ -47,7 +51,7 @@ class Hct private constructor(
         }
 
         private fun gamutMapInViewingConditions(
-            hue: Float, chroma: Float, tone: Float, viewingConditions: ViewingConditions?
+            hue: Float, chroma: Float, tone: Float, viewingConditions: ViewingConditions?,
         ): Int {
             var hue = hue
             if (chroma < 1.0 || Math.round(tone) <= 0.0 || Math.round(tone) >= 100.0) {
