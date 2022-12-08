@@ -11,6 +11,9 @@ class ListView(context: Context, attrs: AttributeSet?) : RecyclerView(context, a
     private var items: MutableList<View>
     private var adapter: com.guavaapps.components.listview.Adapter
     private var layoutManager: com.guavaapps.components.listview.LayoutManager
+    var canScroll: Boolean
+        get() = layoutManager.canScrollVertically()
+        set(value) = layoutManager.setScrollable(value)
 
     fun add(position: Int, item: View) {
         items.add(position, item)
