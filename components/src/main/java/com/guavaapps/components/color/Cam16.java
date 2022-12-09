@@ -186,7 +186,7 @@ class Cam16 {
         float astar = mstar * (float) Math.cos(hueRadians);
         float bstar = mstar * (float) Math.sin(hueRadians);
 
-        return new Cam16 (hue, c, j, q, m, s, jstar, astar, bstar);
+        return new Cam16(hue, c, j, q, m, s, jstar, astar, bstar);
     }
 
 
@@ -215,7 +215,7 @@ class Cam16 {
         float mstar = 1.0f / 0.0228f * (float) Math.log1p(0.0228 * m);
         float astar = mstar * (float) Math.cos(hueRadians);
         float bstar = mstar * (float) Math.sin(hueRadians);
-        return new Cam16 (h, c, j, q, m, s, jstar, astar, bstar);
+        return new Cam16(h, c, j, q, m, s, jstar, astar, bstar);
     }
 
 
