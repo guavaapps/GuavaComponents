@@ -1,75 +1,61 @@
-package com.guavaapps.components.listview;
+package com.guavaapps.components.listview
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import android.view.View
+import com.guavaapps.components.R
+import java.util.ArrayList
 
-import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.recyclerview.widget.RecyclerView;
+internal class Adapter : RecyclerView.Adapter<ViewHolder> {
+    private val viewHolders: List<CoordinatorLayout> = ArrayList()
+    private var views: List<View> = ArrayList()
 
-import com.guavaapps.components.R;
+    constructor() {}
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Adapter extends RecyclerView.Adapter <ViewHolder> {
-        private List <CoordinatorLayout> viewHolders = new ArrayList <> ();
-        private List <View> views = new ArrayList <> ();
-
-        public Adapter () {
-
-        }
-
-        public Adapter (List <View> views) {
-            this.views = views;
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from (parent.getContext ()).inflate (R.layout.list_view_item_holder_layout, parent, false);
-            view.setBackground (null);
-
-            return new ViewHolder (view);
-        }
-
-        @Override
-        public void onBindViewHolder (@NonNull ViewHolder holder, int position) {
-            CoordinatorLayout itemHolder = holder.getView ().findViewById (R.id.item_holder);
-            View view = views.get (position);
-            int width = view.getLayoutParams ().width;
-            int height = view.getLayoutParams ().height;
-
-            itemHolder.getLayoutParams ().width = width;
-            itemHolder.getLayoutParams ().height = height;
-            itemHolder.requestLayout ();
-
-            itemHolder.removeAllViews ();
-
-            CoordinatorLayout viewHolderLayout;
-            if ((viewHolderLayout = (CoordinatorLayout) view.getParent ()) != null)
-                viewHolderLayout.removeAllViews ();
-
-            itemHolder.addView (view);
-        }
-
-        @Override
-        public void onViewAttachedToWindow (@NonNull ViewHolder holder) {
-            super.onViewAttachedToWindow (holder);
-        }
-
-        @Override
-        public void onViewDetachedFromWindow (@NonNull ViewHolder holder) {
-            super.onViewDetachedFromWindow (holder);
-        }
-
-        public CoordinatorLayout getItemHolder (int position) {
-            return viewHolders.get (position);
-        }
-
-        @Override
-        public int getItemCount () {
-            return views.size ();
-        }
+    constructor(views: List<View>) {
+        this.views = views
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_view_item_holder_layout, parent, false)
+        view.background = null
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val itemHolder = holder.view.findViewById<CoordinatorLayout>(R.id.item_holder)
+
+        val view = views[position]
+
+        val width = view.layoutParams.width
+        val height = view.layoutParams.height
+
+        itemHolder.layoutParams.width = width
+        itemHolder.layoutParams.height = height
+        itemHolder.requestLayout()
+        itemHolder.removeAllViews()
+
+        view.parent.let { if (it != null) (it as CoordinatorLayout).removeAllViews() }
+
+        itemHolder.addView(view)
+    }
+
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+    }
+
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+    }
+
+    fun getItemHolder(position: Int): CoordinatorLayout {
+        return viewHolders[position]
+    }
+
+    override fun getItemCount(): Int {
+        return views.size
+    }
+}

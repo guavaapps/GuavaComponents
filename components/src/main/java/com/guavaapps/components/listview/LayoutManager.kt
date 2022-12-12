@@ -1,26 +1,19 @@
-package com.guavaapps.components.listview;
+package com.guavaapps.components.listview
 
-import android.content.Context;
+import android.content.Context
+import androidx.recyclerview.widget.LinearLayoutManager
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-class LayoutManager extends LinearLayoutManager {
-        private boolean scrollable = true;
-
-        public LayoutManager (Context context) {
-            super (context);
-        }
-
-        @Override
-        public boolean canScrollVertically () {
-            return canScroll ();
-        }
-
-        public boolean canScroll () {
-            return scrollable;
-        }
-
-        public void setScrollable (boolean scrollable) {
-            this.scrollable = scrollable;
-        }
+internal class LayoutManager(context: Context?) : LinearLayoutManager(context) {
+    private var scrollable = true
+    override fun canScrollVertically(): Boolean {
+        return canScroll()
     }
+
+    fun canScroll(): Boolean {
+        return scrollable
+    }
+
+    fun setScrollable(scrollable: Boolean) {
+        this.scrollable = scrollable
+    }
+}
