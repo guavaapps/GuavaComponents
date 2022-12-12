@@ -51,7 +51,7 @@ class Hct {
         }
 
         private fun gamutMapInViewingConditions(
-            hue: Float, chroma: Float, tone: Float, viewingConditions: ViewingConditions?,
+            hue: Float, chroma: Float, tone: Float, viewingConditions: ViewingConditions,
         ): Int {
             var hue = hue
             if (chroma < 1.0 || Math.round(tone) <= 0.0 || Math.round(tone) >= 100.0) {
