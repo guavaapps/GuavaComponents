@@ -13,7 +13,7 @@ import com.guavaapps.components.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterKT extends RecyclerView.Adapter <ViewHolder> {
+class AdapterKT extends RecyclerView.Adapter <ViewHolder> {
         private List <CoordinatorLayout> viewHolders = new ArrayList <> ();
         private List <View> views = new ArrayList <> ();
 
