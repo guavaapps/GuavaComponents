@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+components/src/main/java/com/guavaapps/components/color/Cam16KT.java
+components/src/main/java/com/guavaapps/components/color/ViewingConditionsKT.java
