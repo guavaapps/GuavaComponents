@@ -50,7 +50,20 @@ open class NestedScrollableHost : FrameLayout {
         val attrs = context.obtainStyledAttributes(attrs, R.styleable.NestedScrollableHost)
 
         val parent = attrs.getResourceId(R.styleable.NestedScrollableHost_parent, 0)
-        viewParent = findHostById(parent)
+
+        if (parent != 0) viewParent = findHostById(parent)
+    }
+
+    fun attachTo (@IdRes parent: Int) {
+        findHostById(parent)
+    }
+
+    fun attachTo (parent: ViewPager2) {
+        viewParent = parent
+    }
+
+    fun detatch () {
+        viewParent = null
     }
 
     @Deprecated ("Use app:parent in xml layout to define view parent")
@@ -127,14 +140,6 @@ open class NestedScrollableHost : FrameLayout {
     }
 
     private fun findHostById(@IdRes id: Int): ViewPager2 {
-        /**
-        View v = this;
-
-        while ((v = (View) v.getParent()) != null) {
-            if (v.getId() == id) return (ViewPager2) v;
-        }
-         */
-
         var v: View? = this
 
         while ((v?.parent as View?).also { v = it } != null) {
