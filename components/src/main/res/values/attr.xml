@@ -3,4 +3,8 @@
     <declare-styleable name="NestedScrollableHost">
         <attr name="parent" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="ListView">
+        <attr name="firstItem" format="reference"/>
+    </declare-styleable>
 </resources>

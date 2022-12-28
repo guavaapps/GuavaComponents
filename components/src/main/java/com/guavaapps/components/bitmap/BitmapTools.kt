@@ -26,7 +26,7 @@ object BitmapTools {
 
     fun from(
         resources: Resources?,
-        @DrawableRes drawable: Int
+        @DrawableRes drawable: Int,
     ): Bitmap {
         return BitmapFactory.decodeResource(resources, drawable)
     }
@@ -36,7 +36,7 @@ object BitmapTools {
         x: Int,
         y: Int,
         w: Int,
-        h: Int
+        h: Int,
     ): Bitmap {
         return Bitmap.createBitmap(source!!, x, y, w, h)
     }
@@ -52,18 +52,20 @@ object BitmapTools {
     }
 
     fun from(url: String?): Bitmap? {
+        val url = url ?: return null
+
         try {
             val bitmapUrl = URL(url)
             return BitmapFactory.decodeStream(bitmapUrl.openConnection().getInputStream())
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (_: Exception) {
+
         }
         return null
     }
 
     fun from(url: String?, block: (Bitmap?) -> Unit) {
         try {
-            block (from (url))
+            block(from(url))
         } catch (e: Exception) {
             e.printStackTrace()
         }

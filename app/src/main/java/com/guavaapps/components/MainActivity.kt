@@ -13,6 +13,8 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
+import com.google.android.material.color.ColorRoles
+import com.google.android.material.color.MaterialColors
 import com.guavaapps.components.Components.getPx
 import com.guavaapps.components.color.Argb
 import com.guavaapps.components.color.Hct
@@ -31,25 +33,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
-        val listView = findViewById<ListView>(R.id.list_view)
-        Log.e(TAG, "listview - ${listView.canScroll}")
-        listView.canScroll = false
-        Log.e(TAG, "listview - ${listView.canScroll}")
-
-        val hct = Hct.fromInt(Color.RED)
-        hct.tone = 50f
-        logColor(hct)
-        hct.tone = 50f
-        logColor(hct)
-        hct.tone = 90f
-        logColor(hct)
-        hct.tone = 90f
-
+    fun createView (color: Int): View {
         val v = View(this)
         v.layoutParams = ViewGroup.LayoutParams(-1, 200)
-        v.setBackgroundColor(hct.toInt())
+        v.setBackgroundColor(color)
 
-        listView.add(v)
+        val a = theme.obtainStyledAttributes(android.R.style.Theme_Material_NoActionBar,
+            intArrayOf(android.R.attr.selectableItemBackground))
+
+        val ripple =
+            resources.getDrawable(a.getResourceId(0, 0), theme)
+                .mutate()
+
+        return v
     }
 }
